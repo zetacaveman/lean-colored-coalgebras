@@ -1,0 +1,4 @@
+import LeanColoredCoalgebras.Prerequisites.MathlibAudit
+import LeanColoredCoalgebras.ColoredComonoid.Basic
+import LeanColoredCoalgebras.RotaBaxter.Basic
+import LeanColoredCoalgebras.Endoprofunctor.Basic

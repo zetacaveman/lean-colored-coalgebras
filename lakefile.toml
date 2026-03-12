@@ -16,3 +16,9 @@ rev = "v4.28.0"
 
 [[lean_lib]]
 name = "LeanColoredCoalgebras"
+
+[[lean_lib]]
+name = "Hopfbialg"
+
+[[lean_lib]]
+name = "DraftProfunctor"

@@ -11,7 +11,7 @@
 - Confirmed Mathlib already provides core prerequisites:
   `Coalgebra`, convolution algebra on linear maps (`WithConv (C →ₗ[R] A)`),
   `Bialgebra`, `HopfAlgebra`, and group-like elements (`IsGroupLikeElem`, `GroupLike`).
-- Added `LeanColoredCoalgebras/Prerequisites/MathlibAudit.lean` to centralize these reused APIs.
+- Added `Hopfbialg/MathlibAudit.lean` to centralize these reused APIs.
 - Current expected gaps for this project are colored coalgebras and explicit algebraic comodule
   infrastructure, which we will introduce only as paper-specific structures.
 
@@ -58,7 +58,7 @@
   than silently strengthening base axioms, so assumptions remain audit-friendly.
 
 ### 2026-03-10: Endoprofunctor scaffold
-- Added `LeanColoredCoalgebras/Endoprofunctor/Basic.lean` with a project-local
+- Added `DraftProfunctor/Basic.lean` with a project-local
   endoprofunctor scaffold and `Bimodule C := Profunctor C C`.
 - Added coend-style horizontal composition data:
   `CompData`, generating relation `CompRel`, and quotient object `CompObj`.
@@ -75,3 +75,49 @@
 - Kept helper API (`Profunctor.Obj`, `Profunctor.map`) so formulas remain close to
   paper notation while using standard Mathlib foundations.
 - Updated `HomBimod` to be defined directly as a bifunctor.
+
+### 2026-03-12: Split profunctor draft from colored/Hopf development
+- Moved the profunctor/endoprofunctor scaffold to a separate top-level library:
+  `DraftProfunctor`.
+- Removed the profunctor import from `LeanColoredCoalgebras/Basic.lean`, so the
+  colored coalgebra/Hopf pipeline no longer depends on draft profunctor work.
+
+### 2026-03-12: Hopfbialg split + abstract filtered inversion layer
+- Split prerequisite-heavy development into a separate Lean library/module prefix:
+  `Hopfbialg.*`.
+- Added top-level prerequisite modules:
+  `Hopfbialg/MathlibAudit.lean` and
+  `Hopfbialg/ConvolutionInverse.lean`.
+- Added an abstract multiplicative filtration structure on rings:
+  `NatRingFiltration`, with lemmas
+  `pow_mem_succ_of_mem_one` and `isNilpotent_of_mem_one`.
+- Added filtered invertibility criterion:
+  `isUnit_of_filtered_convolution_errors`, reducing convolution invertibility to
+  nilpotence of the two convolution error terms via filtration-level assumptions.
+- Added `FilteredConvolutionData`, which packages filtration hypotheses at the
+  level of submodules and induces nilpotence of convolution errors through
+  vanishing-on-filtration-level assumptions.
+- Added `CoalgebraFiltrationData`, a coalgebra-side filtration package whose
+  `comul_vanish` axiom automatically yields the `mul_vanish` hypothesis needed
+  by `FilteredConvolutionData`.
+- Added conversion theorem layer from coalgebra filtration data to filtered
+  convolution invertibility (`isUnit_mapF_of_errors`) and a convenience
+  connected-form entry point
+  `takeuchi_connected_form_of_coalgebra_filtration`.
+- Added `takeuchi_connected_form` (connected/conilpotent practice form):
+  if `(1 - id)` lies in filtration level `1` and top-stage/multiplicative
+  filtration hypotheses hold, then `id` is convolution invertible.
+- Rationale: this matches the planned Takeuchi-style workflow where coradical/
+  QT-sequence machinery is deferred and consumed through an abstract filtration
+  interface first.
+
+### 2026-03-12: Convolution helper layer + Sweedler tracking notes
+- Added `Hopfbialg/ConvolutionAPI.lean` as a convenience lemma layer for:
+  convolution application formulas, algebra-map pushforward, coalgebra-map
+  precomposition, and antipode/id identities.
+- Added `Hopfbialg/SweedlerAPI.lean` to keep `Coalgebra.Repr`-based
+  finite-sum forms close to the convolution/antipode map-level identities.
+- Added `Hopfbialg/SweedlerNotation.md` as a design/debug document tracking
+  normalization conventions and failure modes.
+- Added `Hopfbialg/TODO.md` to track unresolved repository-boundary decisions
+  for larger Hopf-brace/Yang-Baxter prerequisite modules.

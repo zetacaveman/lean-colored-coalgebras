@@ -1,4 +1,4 @@
-import LeanColoredCoalgebras.Prerequisites.MathlibAudit
+import Hopfbialg.MathlibAudit
+import Hopfbialg.ConvolutionInverse
 import LeanColoredCoalgebras.ColoredComonoid.Basic
 import LeanColoredCoalgebras.RotaBaxter.Basic
-import LeanColoredCoalgebras.Endoprofunctor.Basic

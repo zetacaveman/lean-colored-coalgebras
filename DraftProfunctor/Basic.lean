@@ -31,7 +31,7 @@ Implementation note on the quotient model:
   / `Quot.sound`, which adds proof overhead.
 -/
 
-namespace LeanColoredCoalgebras
+namespace DraftProfunctor
 namespace Endoprofunctor
 
 open CategoryTheory
@@ -168,4 +168,4 @@ def HomBimod (C : Type uC) [Category.{vC} C] : Bimodule (C := C) where
     simp [Category.assoc]
 
 end Endoprofunctor
-end LeanColoredCoalgebras
+end DraftProfunctor
